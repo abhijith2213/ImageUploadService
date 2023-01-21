@@ -8,7 +8,7 @@ export default function NavBar() {
 const [modal,setModal] = useState(false)
 
    return (
-    <div className="">
+    <div className="maxfull overflow-hidden">
 
         <div className="flex flex-wrap place-items-center">
           <section className="relative mx-auto">

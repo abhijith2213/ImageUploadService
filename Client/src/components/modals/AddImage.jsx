@@ -7,6 +7,7 @@ export default function AddImage({ setOpen }) {
 
     const [image, setImage] = useState('')
     const [showImage, setShowImage] = useState('')
+    const [request,setRequest] = useState(false)
       const navigate = useNavigate()
     const handleImage = (e) => {
         setShowImage(URL.createObjectURL(e.target.files[0]))
@@ -15,14 +16,18 @@ export default function AddImage({ setOpen }) {
 
      const handleUpload=async(e)=>{
         e.preventDefault()
+        setRequest(true)
         try {
          if(image){
             const {data} = await uploadImage({file:image})
             console.log(data);
             toast.success(data.message)
-            setOpen(false)
+            setTimeout(()=>{
+               setOpen(false)
+            },2000)
         }
         } catch (error) {
+         setRequest(false)
            if(error.response.status === 403 || 401){
               navigate('/login')
               localStorage.clear()
@@ -81,9 +86,10 @@ export default function AddImage({ setOpen }) {
                   </div>
                   <div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
                      <button
+                     disabled={request}
                      onClick={handleUpload}
                         type='button'
-                        className='inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm'
+                        className='disabled:bg-green-300 inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm'
                      >
                         Upload
                      </button>

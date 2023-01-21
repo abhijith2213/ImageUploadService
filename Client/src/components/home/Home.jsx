@@ -1,16 +1,20 @@
 import React,{useState} from "react"
 import homeBg from '../../assets/home-bg.jpg'
 import AddImage from "../modals/AddImage"
+import {useSelector} from 'react-redux'
+
 export default function Home() {
+
+    const user = useSelector((state) => state.user)
 
     const [open,setOpen]=useState(false)
 
    return (
     <>
-        <div className="md:flex w-screen">
+        <div className="md:flex w-full ">
             <div className="md:w-1/2 flex items-center justify-center h-screen">
                 <div className="mt-8">
-                <h2 className="font-bold text-2xl my-2 text-blue-800">Welcome to Image store</h2>
+                <h2 className="font-bold text-2xl my-2 text-blue-800">Welcome to Image store <b>{user?.user?.fullName}</b></h2>
                 <div className="my-2 text-blue-500 font-sans text-lg">
                 <p className="">We will build you thumbails for your images </p>
                 <p className="">Upload your images now</p>
